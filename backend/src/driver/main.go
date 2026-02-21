@@ -47,8 +47,8 @@ var (
 	logLevel = flag.String("log_level", "1", "The verbosity level to log.")
 
 	// config
-	mlmdServerAddress = flag.String("mlmd_server_address", "metadata-grpc-service", "MLMD server address")
-	mlmdServerPort    = flag.String("mlmd_server_port", "8080", "MLMD server port")
+	mlmdServerAddress = flag.String("mlmd_server_address", "", "MLMD server address")
+	mlmdServerPort    = flag.String("mlmd_server_port", "", "MLMD server port")
 
 	serverPort = flag.String("server_port", ":8080", "Server port")
 
