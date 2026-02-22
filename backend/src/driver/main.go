@@ -44,19 +44,8 @@ const (
 )
 
 var (
-	logLevel = flag.String("log_level", "1", "The verbosity level to log.")
-
-	// config
-	mlmdServerAddress = flag.String("mlmd_server_address", "", "MLMD server address")
-	mlmdServerPort    = flag.String("mlmd_server_port", "", "MLMD server port")
-
+	logLevel   = flag.String("log_level", "1", "The verbosity level to log.")
 	serverPort = flag.String("server_port", ":8080", "Server port")
-
-	// CACertPath Path to the CA certificate
-	// Default "/etc/ssl/certs/ca-certificates/" is the path where the Argo executor sidecar expects the CA certificate.
-	// If a Secret named `argo-workflows-agent-ca-certificates` exists in the cluster,
-	// Argo will automatically mount it here in the sidecar container.
-	CACertPath = flag.String("ca_cert_path", "/etc/ssl/certs/ca-certificates/", "Path to the CA certificate")
 )
 
 func main() {
@@ -177,5 +166,6 @@ func writeFile(path string, data []byte) (err error) {
 }
 
 func newMlmdClient(mlmdServerAddress string, mlmdServerPort string, tlsCfg *tls.Config) (*metadata.Client, error) {
+	glog.Infof("mlmd server address: %s:%s\n", mlmdServerAddress, mlmdServerPort)
 	return metadata.NewClient(mlmdServerAddress, mlmdServerPort, tlsCfg)
 }

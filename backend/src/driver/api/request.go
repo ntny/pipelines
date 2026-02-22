@@ -39,6 +39,8 @@ type DriverPluginArgs struct {
 	IterationCountPath      string `json:"iteration_count_path"`
 	ConditionPath           string `json:"condition_path"`
 	PodSpecPathPath         string `json:"pod_spec_patch_path"`
+	MLMDServerAddress       string `json:"mlmd_server_address"`
+	MLMDServerPort          string `json:"mlmd_server_port"`
 	MlPipelineServerAddress string `json:"ml_pipeline_server_address"`
 	MlPipelineServerPort    string `json:"ml_pipeline_server_port"`
 	MlPipelineTLSEnabled    bool   `json:"ml_pipeline_tls_enabled"`

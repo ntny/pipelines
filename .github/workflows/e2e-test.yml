@@ -236,11 +236,6 @@ jobs:
         run: |
           ./test/artifact-proxy/test-artifact-proxy.sh "$USER_NAMESPACE"
 
-      - name: Debug Created SA All Namespaces
-        if: ${{ always() }}
-        run: |
-          kubectl get sa --all-namespaces
-
       - name: Run Tests
         uses: ./.github/actions/test-and-report
         if: ${{ steps.configure.outcome == 'success' }}
@@ -258,3 +253,9 @@ jobs:
           python_version: ${{ env.PYTHON_VERSION }}
           user_namespace: ${{ env.USER_NAMESPACE }}
           report_name: "E2EMultiUserTests_K8s=${{ matrix.k8s_version }}_cacheEnabled=${{ matrix.cache_enabled }}_multiUser=${{ matrix.multi_user }}"
+
+      - name: Log Argo Wf data
+        if: ${{ always() }}
+        run: |
+          kubectl get wf --all-namespaces
+          kubectl get events --all-namespaces --field-selector involvedObject.kind=Workflow --sort-by='.metadata.creationTimestamp'

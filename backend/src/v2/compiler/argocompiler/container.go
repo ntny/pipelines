@@ -22,6 +22,7 @@ import (
 	"strings"
 
 	"github.com/kubeflow/pipelines/backend/src/v2/config"
+	"github.com/kubeflow/pipelines/backend/src/v2/metadata"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/kubeflow/pipelines/backend/src/apiserver/config/proxy"
@@ -38,9 +39,7 @@ import (
 
 const (
 	volumeNameKFPLauncher = "kfp-launcher"
-	volumeNameCABundle    = "ca-bundle"
 	LauncherImageEnvVar   = "V2_LAUNCHER_IMAGE"
-	DriverImageEnvVar     = "V2_DRIVER_IMAGE"
 	// DefaultLauncherImage & DefaultDriverImage are set as latest here
 	// but are overridden by environment variables set via k8s manifests.
 	// For releases, the manifest will have the correct release version set.
@@ -48,9 +47,6 @@ const (
 	DefaultLauncherImage     = "ghcr.io/kubeflow/kfp-launcher:latest"
 	LauncherCommandEnvVar    = "V2_LAUNCHER_COMMAND"
 	DefaultLauncherCommand   = "launcher-v2"
-	DefaultDriverImage       = "ghcr.io/kubeflow/kfp-driver:latest"
-	DefaultDriverCommand     = "driver"
-	DriverCommandEnvVar      = "V2_DRIVER_COMMAND"
 	PipelineRunAsUserEnvVar  = "PIPELINE_RUN_AS_USER"
 	PipelineLogLevelEnvVar   = "PIPELINE_LOG_LEVEL"
 	PublishLogsEnvVar        = "PUBLISH_LOGS"
@@ -199,8 +195,8 @@ func (c *workflowCompiler) addContainerDriverTemplate() (string, error) {
 		"no_proxy":                   proxy.GetConfig().GetNoProxy(),
 		"ml_pipeline_server_address": config.GetMLPipelineServerConfig().Address,
 		"ml_pipeline_server_port":    config.GetMLPipelineServerConfig().Port,
-		"mlmd_server_address":        config.GetMLPipelineServerConfig().Address,
-		"mlmd_server_port":           config.GetMLPipelineServerConfig().Port,
+		"mlmd_server_address":        metadata.GetMetadataConfig().Address,
+		"mlmd_server_port":           metadata.GetMetadataConfig().Port,
 		"cache_disabled":             c.cacheDisabled,
 		"ml_pipeline_tls_enabled":    c.mlPipelineTLSEnabled,
 		"metadata_tls_enabled":       common.GetMetadataTLSEnabled(),

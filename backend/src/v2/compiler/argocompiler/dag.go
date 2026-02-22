@@ -25,6 +25,7 @@ import (
 	"github.com/kubeflow/pipelines/backend/src/apiserver/config/proxy"
 	"github.com/kubeflow/pipelines/backend/src/v2/compiler"
 	"github.com/kubeflow/pipelines/backend/src/v2/config"
+	"github.com/kubeflow/pipelines/backend/src/v2/metadata"
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
@@ -581,8 +582,8 @@ func (c *workflowCompiler) addDAGDriverTemplate() (string, error) {
 		"no_proxy":                   proxy.GetConfig().GetNoProxy(),
 		"ml_pipeline_server_address": config.GetMLPipelineServerConfig().Address,
 		"ml_pipeline_server_port":    config.GetMLPipelineServerConfig().Port,
-		"mlmd_server_address":        config.GetMLPipelineServerConfig().Address,
-		"mlmd_server_port":           config.GetMLPipelineServerConfig().Port,
+		"mlmd_server_address":        metadata.GetMetadataConfig().Address,
+		"mlmd_server_port":           metadata.GetMetadataConfig().Port,
 		"cache_disabled":             c.cacheDisabled,
 		"ml_pipeline_tls_enabled":    c.mlPipelineTLSEnabled,
 		"metadata_tls_enabled":       common.GetMetadataTLSEnabled(),

@@ -141,8 +141,13 @@ spec:
   podMetadata:
     annotations:
       pipelines.kubeflow.org/v2_component: "true"
+      sidecar.istio.io/inject: "false"
     labels:
       pipelines.kubeflow.org/v2_component: "true"
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   serviceAccountName: pipeline-runner
   templates:
   - inputs:
@@ -190,8 +195,8 @@ spec:
           ml_pipeline_server_address: ml-pipeline.kubeflow.svc.cluster.local
           ml_pipeline_server_port: "8887"
           ml_pipeline_tls_enabled: false
-          mlmd_server_address: ml-pipeline.kubeflow.svc.cluster.local
-          mlmd_server_port: "8887"
+          mlmd_server_address: metadata-grpc-service.kubeflow.svc.cluster.local
+          mlmd_server_port: "8080"
           no_proxy: ""
           pipeline_name: pipeline-with-dynamic-condition-output
           pod_spec_patch_path: '{{outputs.parameters.pod-spec-patch.path}}'
@@ -201,6 +206,10 @@ spec:
           task: '{{inputs.parameters.task}}'
           task_name: '{{inputs.parameters.task-name}}'
           type: CONTAINER
+    securityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
   - dag:
       tasks:
       - arguments:
@@ -237,6 +246,13 @@ spec:
       image: gcr.io/ml-pipeline/should-be-overridden-during-runtime
       name: ""
       resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        seccompProfile:
+          type: RuntimeDefault
       volumeMounts:
       - mountPath: /kfp-launcher
         name: kfp-launcher
@@ -266,6 +282,14 @@ spec:
           memory: 256Mi
         requests:
           cpu: 100m
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       volumeMounts:
       - mountPath: /kfp-launcher
         name: kfp-launcher
@@ -276,6 +300,9 @@ spec:
     name: system-container-impl
     outputs: {}
     podSpecPatch: '{{inputs.parameters.pod-spec-patch}}'
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
     volumes:
     - emptyDir: {}
       name: kfp-launcher
@@ -369,8 +396,8 @@ spec:
           ml_pipeline_server_address: ml-pipeline.kubeflow.svc.cluster.local
           ml_pipeline_server_port: "8887"
           ml_pipeline_tls_enabled: false
-          mlmd_server_address: ml-pipeline.kubeflow.svc.cluster.local
-          mlmd_server_port: "8887"
+          mlmd_server_address: metadata-grpc-service.kubeflow.svc.cluster.local
+          mlmd_server_port: "8080"
           no_proxy: ""
           pipeline_name: pipeline-with-dynamic-condition-output
           run_display_name: ""
@@ -380,6 +407,10 @@ spec:
           task: '{{inputs.parameters.task}}'
           task_name: '{{inputs.parameters.task-name}}'
           type: '{{inputs.parameters.driver-type}}'
+    securityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
   - dag:
       tasks:
       - arguments:

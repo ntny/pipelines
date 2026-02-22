@@ -193,7 +193,7 @@ func drive(args api.DriverPluginArgs) (execution *driver.Execution, err error) {
 			return nil, fmt.Errorf("unable to drive driver: failed to load TLS configuration: %v", err)
 		}
 	}
-	client, err := newMlmdClient(*mlmdServerAddress, *mlmdServerPort, tlsCfg)
+	client, err := newMlmdClient(args.MLMDServerAddress, args.MLMDServerPort, tlsCfg)
 	if err != nil {
 		return nil, err
 	}
@@ -228,8 +228,8 @@ func drive(args api.DriverPluginArgs) (execution *driver.Execution, err error) {
 		MLPipelineServerAddress: args.MlPipelineServerAddress,
 		MLPipelineServerPort:    args.MlPipelineServerPort,
 		MLPipelineTLSEnabled:    args.MlPipelineTLSEnabled,
-		MLMDServerAddress:       *mlmdServerAddress,
-		MLMDServerPort:          *mlmdServerPort,
+		MLMDServerAddress:       args.MLMDServerAddress,
+		MLMDServerPort:          args.MLMDServerPort,
 		CaCertPath:              args.CACertPath,
 	}
 
