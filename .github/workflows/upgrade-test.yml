@@ -121,3 +121,9 @@ jobs:
           default_namespace: ${{ env.NAMESPACE }}
           python_version: ${{ env.PYTHON_VERSION }}
           report_name: "Upgrade Verification"
+
+      - name: Log Argo Wf data
+        if: ${{ always() }}
+        run: |
+          kubectl get wf --all-namespaces
+          kubectl get events --all-namespaces --field-selector involvedObject.kind=Workflow --sort-by='.metadata.creationTimestamp'
