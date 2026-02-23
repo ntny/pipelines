@@ -21,6 +21,12 @@ data:
     securityContext:
       runAsNonRoot: true
       runAsUser: 65534
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      seccompProfile:
+        type: RuntimeDefault
     volumeMounts:
     - name: argo-workflows-agent-ca-certificates
       mountPath: /kfp/certs
