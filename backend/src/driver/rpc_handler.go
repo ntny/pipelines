@@ -230,6 +230,7 @@ func drive(args api.DriverPluginArgs) (execution *driver.Execution, err error) {
 		MLPipelineTLSEnabled:    args.MlPipelineTLSEnabled,
 		MLMDServerAddress:       args.MLMDServerAddress,
 		MLMDServerPort:          args.MLMDServerPort,
+		MLMDTLSEnabled:          args.MetadataTLSEnabled,
 		CaCertPath:              args.CACertPath,
 	}
 
