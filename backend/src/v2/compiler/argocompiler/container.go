@@ -218,6 +218,15 @@ func (c *workflowCompiler) addContainerDriverTemplate() (string, error) {
 	if err != nil {
 		return name, fmt.Errorf("failed to add container driver plugin: %v", err)
 	}
+	if c.defaultRunAsUser != nil {
+		args = append(args, "--default_run_as_user", strconv.FormatInt(*c.defaultRunAsUser, 10))
+	}
+	if c.defaultRunAsGroup != nil {
+		args = append(args, "--default_run_as_group", strconv.FormatInt(*c.defaultRunAsGroup, 10))
+	}
+	if c.defaultRunAsNonRoot != nil {
+		args = append(args, "--default_run_as_non_root", strconv.FormatBool(*c.defaultRunAsNonRoot))
+	}
 
 	template := &wfapi.Template{
 		Name: name,
@@ -528,7 +537,7 @@ func (c *workflowCompiler) addContainerExecutorTemplate(task *pipelinespec.Pipel
 	if common.GetCaBundleSecretName() != "" || common.GetCaBundleConfigMapName() != "" {
 		ConfigureCustomCABundle(executor)
 	}
-	applySecurityContextToExecutorTemplate(executor)
+	applySecurityContextToExecutorTemplate(executor, c.defaultRunAsUser, c.defaultRunAsGroup, c.defaultRunAsNonRoot)
 
 	// If retry policy is set, add retryStrategy to executor
 	if taskRetrySpec != nil {
