@@ -38,7 +38,7 @@ type DriverPluginArgs struct {
 	ExecutionIDPath         string `json:"execution_id_path"`
 	IterationCountPath      string `json:"iteration_count_path"`
 	ConditionPath           string `json:"condition_path"`
-	PodSpecPathPath         string `json:"pod_spec_patch_path"`
+	PodSpecPatchPath        string `json:"pod_spec_patch_path"`
 	MLMDServerAddress       string `json:"mlmd_server_address"`
 	MLMDServerPort          string `json:"mlmd_server_port"`
 	MlPipelineServerAddress string `json:"ml_pipeline_server_address"`
@@ -47,6 +47,9 @@ type DriverPluginArgs struct {
 	MetadataTLSEnabled      bool   `json:"metadata_tls_enabled"`
 	CACertPath              string `json:"ca_cert_path"`
 	LogLevel                string `json:"log_level"`
+	DefaultRunAsUser        *int64 `json:"default_run_as_user,omitempty"`
+	DefaultRunAsGroup       *int64 `json:"default_run_as_group,omitempty"`
+	DefaultRunAsNonRoot     string `json:"default_run_as_non_root,omitempty"`
 }
 
 type DriverPlugin struct {

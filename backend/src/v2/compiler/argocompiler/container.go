@@ -213,19 +213,19 @@ func (c *workflowCompiler) addContainerDriverTemplate() (string, error) {
 	if value, ok := os.LookupEnv(PublishLogsEnvVar); ok {
 		args["publish_logs"] = value
 	}
+	if c.defaultRunAsUser != nil {
+		args["default_run_as_user"] = strconv.FormatInt(*c.defaultRunAsUser, 10)
+	}
+	if c.defaultRunAsGroup != nil {
+		args["default_run_as_group"] = strconv.FormatInt(*c.defaultRunAsGroup, 10)
+	}
+	if c.defaultRunAsNonRoot != nil {
+		args["default_run_as_non_root"] = strconv.FormatBool(*c.defaultRunAsNonRoot)
+	}
 
 	containerDriverPlugin, err := driverPlugin(args)
 	if err != nil {
 		return name, fmt.Errorf("failed to add container driver plugin: %v", err)
-	}
-	if c.defaultRunAsUser != nil {
-		args = append(args, "--default_run_as_user", strconv.FormatInt(*c.defaultRunAsUser, 10))
-	}
-	if c.defaultRunAsGroup != nil {
-		args = append(args, "--default_run_as_group", strconv.FormatInt(*c.defaultRunAsGroup, 10))
-	}
-	if c.defaultRunAsNonRoot != nil {
-		args = append(args, "--default_run_as_non_root", strconv.FormatBool(*c.defaultRunAsNonRoot))
 	}
 
 	template := &wfapi.Template{

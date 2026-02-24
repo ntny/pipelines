@@ -244,6 +244,18 @@ func drive(args api.DriverPluginArgs) (execution *driver.Execution, err error) {
 	case CONTAINER:
 		options.Container = containerSpec
 		options.KubernetesExecutorConfig = k8sExecCfg
+		if args.DefaultRunAsUser != nil && *args.DefaultRunAsUser >= 0 {
+			options.DefaultRunAsUser = args.DefaultRunAsUser
+		}
+		if args.DefaultRunAsGroup != nil && *args.DefaultRunAsGroup >= 0 {
+			options.DefaultRunAsGroup = args.DefaultRunAsGroup
+		}
+		if args.DefaultRunAsNonRoot != "" {
+			v, err := strconv.ParseBool(args.DefaultRunAsNonRoot)
+			if err == nil {
+				options.DefaultRunAsNonRoot = &v
+			}
+		}
 		execution, driverErr = driver.Container(ctx, options, client, cacheClient)
 	default:
 		err = fmt.Errorf("unknown driverType %s", args.Type)
