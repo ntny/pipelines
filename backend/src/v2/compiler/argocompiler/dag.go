@@ -213,6 +213,7 @@ type taskInputs struct {
 	iterationIndex string
 	// if provided, this will be the template the Argo Workflow exit lifecycle hook will execute.
 	exitTemplate string
+	taskName     string
 }
 
 // parentDagID: placeholder for parent DAG execution ID
@@ -244,12 +245,17 @@ func (c *workflowCompiler) task(name string, task *pipelinespec.PipelineTaskSpec
 	switch impl := componentSpec.GetImplementation().(type) {
 	case *pipelinespec.ComponentSpec_Dag:
 		driverTaskName := name + "-driver"
+		effectiveTaskName := name
+		if inputs.taskName != "" {
+			effectiveTaskName = inputs.taskName
+		}
+
 		driver, driverOutputs, err := c.dagDriverTask(driverTaskName, dagDriverInputs{
 			parentDagID:    inputs.parentDagID,
 			component:      componentSpecPlaceholder,
 			task:           taskSpecJson,
 			iterationIndex: inputs.iterationIndex,
-			taskName:       name,
+			taskName:       effectiveTaskName,
 		})
 		if err != nil {
 			return nil, err
@@ -282,6 +288,11 @@ func (c *workflowCompiler) task(name string, task *pipelinespec.PipelineTaskSpec
 				return nil, err
 			}
 			driverTaskName := name + "-driver"
+			effectiveTaskName := name
+			if inputs.taskName != "" {
+				effectiveTaskName = inputs.taskName
+			}
+
 			// The following call will return an empty string for tasks without kubernetes-specific annotation.
 			kubernetesConfigPlaceholder, _ := c.useKubernetesImpl(componentName)
 			driver, driverOutputs, err := c.containerDriverTask(driverTaskName, containerDriverInputs{
@@ -291,7 +302,7 @@ func (c *workflowCompiler) task(name string, task *pipelinespec.PipelineTaskSpec
 				parentDagID:      inputs.parentDagID,
 				iterationIndex:   inputs.iterationIndex,
 				kubernetesConfig: kubernetesConfigPlaceholder,
-				taskName:         name,
+				taskName:         effectiveTaskName,
 			})
 			if err != nil {
 				return nil, err
@@ -346,7 +357,7 @@ func (c *workflowCompiler) task(name string, task *pipelinespec.PipelineTaskSpec
 	}
 }
 
-func (c *workflowCompiler) iteratorTask(name string, task *pipelinespec.PipelineTaskSpec, taskJson string, parentDagID string) (tasks []wfapi.DAGTask, err error) {
+func (c *workflowCompiler) iteratorTask(name string, task *pipelinespec.PipelineTaskSpec, taskJSON string, parentDagID string) (tasks []wfapi.DAGTask, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("iterator task: %w", err)
@@ -354,7 +365,7 @@ func (c *workflowCompiler) iteratorTask(name string, task *pipelinespec.Pipeline
 	}()
 	componentName := task.GetComponentRef().GetName()
 	// Set up Loop Control Template
-	iteratorTasks, err := c.iterationItemTask("iteration", task, taskJson, parentDagID)
+	iteratorTasks, err := c.iterationItemTask("iteration", task, taskJSON, parentDagID, name)
 	if err != nil {
 		return nil, err
 	}
@@ -396,7 +407,7 @@ func (c *workflowCompiler) iteratorTask(name string, task *pipelinespec.Pipeline
 	return tasks, nil
 }
 
-func (c *workflowCompiler) iterationItemTask(name string, task *pipelinespec.PipelineTaskSpec, taskJson string, parentDagID string) (tasks []wfapi.DAGTask, err error) {
+func (c *workflowCompiler) iterationItemTask(name string, task *pipelinespec.PipelineTaskSpec, taskJSON string, parentDagID string, parallelForTaskKey string) (tasks []wfapi.DAGTask, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("iterationItem task: %w", err)
@@ -413,7 +424,8 @@ func (c *workflowCompiler) iterationItemTask(name string, task *pipelinespec.Pip
 	driverInputs := dagDriverInputs{
 		component:   componentSpecPlaceholder,
 		parentDagID: parentDagID,
-		task:        taskJson, // TODO(Bobgy): avoid duplicating task JSON twice in the template.
+		task:        taskJSON, // TODO(Bobgy): avoid duplicating task JSON twice in the template.
+		taskName:    parallelForTaskKey,
 	}
 	driver, driverOutputs, err := c.dagDriverTask(driverArgoName, driverInputs)
 	if err != nil {
@@ -427,6 +439,7 @@ func (c *workflowCompiler) iterationItemTask(name string, task *pipelinespec.Pip
 		taskInputs{
 			parentDagID:    inputParameter(paramParentDagID),
 			iterationIndex: inputParameter(paramIterationIndex),
+			taskName:       parallelForTaskKey,
 		},
 	)
 	if err != nil {
@@ -529,7 +542,7 @@ func (c *workflowCompiler) dagDriverTask(name string, inputs dagDriverInputs) (*
 		})
 	}
 
-	if inputs.taskName != "" && inputs.taskName != "iteration-item" {
+	if inputs.taskName != "" {
 		params = append(params, wfapi.Parameter{
 			Name:  paramTaskName,
 			Value: wfapi.AnyStringPtr(inputs.taskName),
