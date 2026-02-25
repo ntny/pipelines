@@ -261,7 +261,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -405,6 +405,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--loop_parameter":{"componentInputParameter":"pipelinechannel--loop_parameter"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop_parameter-loop-item","items":{"inputParameter":"pipelinechannel--loop_parameter"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -433,6 +435,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--loop_parameter":{"componentInputParameter":"pipelinechannel--loop_parameter"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop_parameter-loop-item","items":{"inputParameter":"pipelinechannel--loop_parameter"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -687,6 +691,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-6"},"iteratorPolicy":{"parallelismLimit":1},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-5","items":{"raw":"[{\"A_a\":
               \"10\", \"B_b\": \"20\"}, {\"A_a\": \"100\", \"B_b\": \"200\"}]"}},"taskInfo":{"name":"for-loop-6"}}'
+          - name: task-name
+            value: for-loop-6
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -716,6 +722,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-6"},"iteratorPolicy":{"parallelismLimit":1},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-5","items":{"raw":"[{\"A_a\":
               \"10\", \"B_b\": \"20\"}, {\"A_a\": \"100\", \"B_b\": \"200\"}]"}},"taskInfo":{"name":"for-loop-6"}}'
+          - name: task-name
+            value: for-loop-6
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -874,6 +882,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-1"},"inputs":{"parameters":{"pipelinechannel--loop_parameter":{"componentInputParameter":"loop_parameter"}}},"iteratorPolicy":{"parallelismLimit":2},"parameterIterator":{"itemInput":"pipelinechannel--loop_parameter-loop-item","items":{"inputParameter":"pipelinechannel--loop_parameter"}},"taskInfo":{"name":"for-loop-1"}}'
+          - name: task-name
+            value: for-loop-1
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -902,6 +912,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-1"},"inputs":{"parameters":{"pipelinechannel--loop_parameter":{"componentInputParameter":"loop_parameter"}}},"iteratorPolicy":{"parallelismLimit":2},"parameterIterator":{"itemInput":"pipelinechannel--loop_parameter-loop-item","items":{"inputParameter":"pipelinechannel--loop_parameter"}},"taskInfo":{"name":"for-loop-1"}}'
+          - name: task-name
+            value: for-loop-1
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -934,6 +946,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-10"},"dependentTasks":["list-dict-maker-1"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-1-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-1"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-1-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-1-Output"}},"taskInfo":{"name":"for-loop-10"}}'
+          - name: task-name
+            value: for-loop-10
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -962,6 +976,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-10"},"dependentTasks":["list-dict-maker-1"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-1-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-1"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-1-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-1-Output"}},"taskInfo":{"name":"for-loop-10"}}'
+          - name: task-name
+            value: for-loop-10
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -993,6 +1009,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-11"},"dependentTasks":["list-dict-maker-2"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-2-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-2"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-2-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-2-Output"}},"taskInfo":{"name":"for-loop-11"}}'
+          - name: task-name
+            value: for-loop-11
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1021,6 +1039,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-11"},"dependentTasks":["list-dict-maker-2"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-2-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-2"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-2-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-2-Output"}},"taskInfo":{"name":"for-loop-11"}}'
+          - name: task-name
+            value: for-loop-11
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -1052,6 +1072,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-12"},"dependentTasks":["list-dict-maker-3"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-3-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-3"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-3-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-3-Output"}},"taskInfo":{"name":"for-loop-12"}}'
+          - name: task-name
+            value: for-loop-12
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1080,6 +1102,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-12"},"dependentTasks":["list-dict-maker-3"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-3-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-3"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-3-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-3-Output"}},"taskInfo":{"name":"for-loop-12"}}'
+          - name: task-name
+            value: for-loop-12
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -1111,6 +1135,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-13"},"dependentTasks":["list-dict-maker-1-2"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-1-2-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-1-2"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-1-2-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-1-2-Output"}},"taskInfo":{"name":"for-loop-13"}}'
+          - name: task-name
+            value: for-loop-13
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1139,6 +1165,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-13"},"dependentTasks":["list-dict-maker-1-2"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-1-2-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-1-2"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-1-2-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-1-2-Output"}},"taskInfo":{"name":"for-loop-13"}}'
+          - name: task-name
+            value: for-loop-13
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -1171,6 +1199,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[{\"A_a\":
               \"1\", \"B_b\": \"2\"}, {\"A_a\": \"10\", \"B_b\": \"20\"}]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1200,6 +1230,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[{\"A_a\":
               \"1\", \"B_b\": \"2\"}, {\"A_a\": \"10\", \"B_b\": \"20\"}]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -1232,6 +1264,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-8"},"iteratorPolicy":{"parallelismLimit":1},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-7","items":{"raw":"[{\"a\":
               1, \"b\": 2}, {\"a\": 2, \"b\": 3}, {\"a\": 3, \"b\": 4}]"}},"taskInfo":{"name":"for-loop-8"}}'
+          - name: task-name
+            value: for-loop-8
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1261,6 +1295,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-8"},"iteratorPolicy":{"parallelismLimit":1},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-7","items":{"raw":"[{\"a\":
               1, \"b\": 2}, {\"a\": 2, \"b\": 3}, {\"a\": 3, \"b\": 4}]"}},"taskInfo":{"name":"for-loop-8"}}'
+          - name: task-name
+            value: for-loop-8
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -1293,6 +1329,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-9"},"dependentTasks":["list-dict-maker-0"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-0-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-0"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-0-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-0-Output"}},"taskInfo":{"name":"for-loop-9"}}'
+          - name: task-name
+            value: for-loop-9
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -1321,6 +1359,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-9"},"dependentTasks":["list-dict-maker-0"],"inputs":{"parameters":{"pipelinechannel--list-dict-maker-0-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"list-dict-maker-0"}}}},"parameterIterator":{"itemInput":"pipelinechannel--list-dict-maker-0-Output-loop-item","items":{"inputParameter":"pipelinechannel--list-dict-maker-0-Output"}},"taskInfo":{"name":"for-loop-9"}}'
+          - name: task-name
+            value: for-loop-9
         name: iteration-driver
         template: system-dag-driver
       - arguments:

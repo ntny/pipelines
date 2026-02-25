@@ -274,7 +274,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -472,6 +472,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--split-chars-Output":{"componentInputParameter":"pipelinechannel--split-chars-Output"},"pipelinechannel--split-ids-Output-loop-item":{"componentInputParameter":"pipelinechannel--split-ids-Output-loop-item"}}},"parameterIterator":{"itemInput":"pipelinechannel--split-chars-Output-loop-item","items":{"inputParameter":"pipelinechannel--split-chars-Output"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -500,6 +502,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--split-chars-Output":{"componentInputParameter":"pipelinechannel--split-chars-Output"},"pipelinechannel--split-ids-Output-loop-item":{"componentInputParameter":"pipelinechannel--split-ids-Output-loop-item"}}},"parameterIterator":{"itemInput":"pipelinechannel--split-chars-Output-loop-item","items":{"inputParameter":"pipelinechannel--split-chars-Output"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -644,6 +648,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-1"},"dependentTasks":["split-chars","split-ids"],"inputs":{"parameters":{"pipelinechannel--split-chars-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"split-chars"}},"pipelinechannel--split-ids-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"split-ids"}}}},"parameterIterator":{"itemInput":"pipelinechannel--split-ids-Output-loop-item","items":{"inputParameter":"pipelinechannel--split-ids-Output"}},"taskInfo":{"name":"for-loop-1"}}'
+          - name: task-name
+            value: for-loop-1
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -672,6 +678,8 @@ spec:
             value: '{{inputs.parameters.parent-dag-id}}'
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-1"},"dependentTasks":["split-chars","split-ids"],"inputs":{"parameters":{"pipelinechannel--split-chars-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"split-chars"}},"pipelinechannel--split-ids-Output":{"taskOutputParameter":{"outputParameterKey":"Output","producerTask":"split-ids"}}}},"parameterIterator":{"itemInput":"pipelinechannel--split-ids-Output-loop-item","items":{"inputParameter":"pipelinechannel--split-ids-Output"}},"taskInfo":{"name":"for-loop-1"}}'
+          - name: task-name
+            value: for-loop-1
         name: iteration-driver
         template: system-dag-driver
       - arguments:

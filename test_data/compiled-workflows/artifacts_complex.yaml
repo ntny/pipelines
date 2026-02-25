@@ -208,7 +208,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -465,6 +465,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"inputs":{"parameters":{"pipelinechannel--threshold":{"componentInputParameter":"pipelinechannel--threshold"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[1,
               2, 3]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -494,6 +496,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"inputs":{"parameters":{"pipelinechannel--threshold":{"componentInputParameter":"pipelinechannel--threshold"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[1,
               2, 3]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -564,6 +568,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--threshold":{"componentInputParameter":"threshold"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-1","items":{"raw":"[1,
               2, 3]"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -593,6 +599,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"inputs":{"parameters":{"pipelinechannel--threshold":{"componentInputParameter":"threshold"}}},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-1","items":{"raw":"[1,
               2, 3]"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-driver
         template: system-dag-driver
       - arguments:

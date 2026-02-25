@@ -285,7 +285,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -411,7 +411,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -572,7 +572,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -715,7 +715,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -848,7 +848,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:

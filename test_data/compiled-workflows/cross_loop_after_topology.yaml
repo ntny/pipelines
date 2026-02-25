@@ -184,7 +184,7 @@ spec:
       resources:
         limits:
           cpu: 500m
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 100m
       securityContext:
@@ -361,6 +361,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-14"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-13","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-14"}}'
+          - name: task-name
+            value: for-loop-14
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -390,6 +392,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-14"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-13","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-14"}}'
+          - name: task-name
+            value: for-loop-14
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -557,6 +561,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-8"},"dependentTasks":["print-op-3"],"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-7","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-8"}}'
+          - name: task-name
+            value: for-loop-8
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -586,6 +592,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-8"},"dependentTasks":["print-op-3"],"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-7","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-8"}}'
+          - name: task-name
+            value: for-loop-8
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -657,6 +665,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-10"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-9","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-10"}}'
+          - name: task-name
+            value: for-loop-10
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -686,6 +696,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-10"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-9","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-10"}}'
+          - name: task-name
+            value: for-loop-10
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -718,6 +730,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-12"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-11","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-12"}}'
+          - name: task-name
+            value: for-loop-12
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -747,6 +761,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-12"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-11","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-12"}}'
+          - name: task-name
+            value: for-loop-12
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -779,6 +795,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-1","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -808,6 +826,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-2"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-1","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-2"}}'
+          - name: task-name
+            value: for-loop-2
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -840,6 +860,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"dependentTasks":["for-loop-2"],"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -869,6 +891,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-4"},"dependentTasks":["for-loop-2"],"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-3","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-4"}}'
+          - name: task-name
+            value: for-loop-4
         name: iteration-driver
         template: system-dag-driver
       - arguments:
@@ -901,6 +925,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-6"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-5","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-6"}}'
+          - name: task-name
+            value: for-loop-6
         name: iteration-item-driver
         template: system-dag-driver
       - arguments:
@@ -930,6 +956,8 @@ spec:
           - name: task
             value: '{"componentRef":{"name":"comp-for-loop-6"},"parameterIterator":{"itemInput":"pipelinechannel--loop-item-param-5","items":{"raw":"[1,
               2]"}},"taskInfo":{"name":"for-loop-6"}}'
+          - name: task-name
+            value: for-loop-6
         name: iteration-driver
         template: system-dag-driver
       - arguments:
