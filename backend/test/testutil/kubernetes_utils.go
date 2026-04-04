@@ -77,6 +77,53 @@ func ReadPodLogs(client *kubernetes.Clientset, namespace string, podName string,
 			podLogs, err := podLogsRequest.Stream(context.Background()) // Pass a context for cancellation
 			if err != nil {
 				logger.Log("Failed to stream pod logs for container '%s' due to %v", container.Name, err)
+
+				// inspect container
+				for _, cs := range podFromPodName.Status.ContainerStatuses {
+					if cs.Name != container.Name {
+						continue
+					}
+
+					if cs.State.Waiting != nil {
+						logger.Log(
+							"Inspect Pod=%s Container %s waiting: reason=%s message=%s",
+							podName,
+							container.Name,
+							cs.State.Waiting.Reason,
+							cs.State.Waiting.Message,
+						)
+					}
+
+					if cs.State.Terminated != nil {
+						logger.Log(
+							"Inspect Pod=%s Container %s terminated: reason=%s exitCode=%d message=%s",
+							podName,
+							container.Name,
+							cs.State.Terminated.Reason,
+							cs.State.Terminated.ExitCode,
+							cs.State.Terminated.Message,
+						)
+					}
+				}
+
+				// Fallback: inspect pod events and reasons
+				events, eventsErr := client.CoreV1().
+					Events(namespace).
+					List(context.Background(), metav1.ListOptions{
+						FieldSelector: fmt.Sprintf("involvedObject.name=%s,involvedObject.kind=Pod", podFromPodName.Name),
+					})
+
+				if eventsErr == nil {
+					for _, event := range events.Items {
+						logger.Log(
+							"Inspect Pod=%s event: type=%s reason=%s message=%s",
+							podName,
+							event.Type,
+							event.Reason,
+							event.Message,
+						)
+					}
+				}
 				continue
 			}
 			if podLogs == nil {
