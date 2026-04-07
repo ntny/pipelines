@@ -131,11 +131,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: ml-pipeline-driver-agent-executor-plugin-binding
-  namespace: kubeflow
 subjects:
   - kind: ServiceAccount
     name: ml-pipeline-driver-agent-executor-plugin
-    namespace: kubeflow
 roleRef:
   kind: Role
   name: ml-pipeline-executor-plugin-role
