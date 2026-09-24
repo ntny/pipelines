@@ -190,7 +190,7 @@ func getCurrentWorkflowMetadata(ctx context.Context, namespace string, workflowN
 	if workflowName == "" {
 		return nil, fmt.Errorf("workflow name is empty")
 	}
-	restConfig, err := util.GetKubernetesConfig()
+	restConfig, err := executorPluginKubernetesConfig()
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize kubernetes config for workflow metadata: %w", err)
 	}
@@ -536,7 +536,7 @@ func uploadDriverLogArtifact(ctx context.Context, logContext *driverLogArtifactC
 		return fmt.Errorf("logContext is nil")
 	}
 	if logContext.PipelineRoot != "" {
-		restConfig, err := util.GetKubernetesConfig()
+		restConfig, err := executorPluginKubernetesConfig()
 		if err != nil {
 			return fmt.Errorf("failed to get kubernetes config: %v", err)
 		}
